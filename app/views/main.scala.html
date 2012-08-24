@@ -1,0 +1,60 @@
+@()
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    @css("bootstrap.css")
+    @css("style.css")
+
+  <body>
+    <div class='container'>
+
+      <div class='row'>
+  
+        @tableIcon("A")
+        @tableIcon("B")
+        @tableIcon("C")
+        @tableIcon("D")
+        @tableIcon("E")
+      </div>
+  
+      <div class='row'>
+        @table("A")
+        @table("B")
+      </div>
+      <div class='row'>
+        @table("C")
+        @table("D")
+      </div>
+  
+      <div class='row'>
+        @table("E")
+      </div>
+    </div>
+        
+  </body>
+  
+  @js("jquery-1.7.2.js")
+  @js("underscore.js")
+  @js("speaker.js")  
+</html>
+
+@table(label: String) = {
+  <div class='span5 tableView'>
+   <div class='rep' id='@label'>
+   <pre>
+    Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse  
+    Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse
+    Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse
+    </pre>
+    </div>
+  
+   <div class='wm'>@label</div>
+  </div>
+}
+
+@tableIcon(label: String) = {
+  <div class='span2'>
+    <a class='btn btn-primary'>@label</a>
+  </div>
+}

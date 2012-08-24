@@ -1,0 +1,22 @@
+
+.tableView {
+  border-style: solid;
+  border-color: lightgray;
+  height: 250px;
+  margin-top: 20px;
+  position:relative;
+}
+
+.wm {
+  font-size: 12em;
+  color: grey;
+  
+  position:absolute;
+  margin-left: 135px;
+  top: 95px;
+  opacity: 0.28  
+}
+
+.rep {
+  position:relative;
+}

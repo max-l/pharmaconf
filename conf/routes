@@ -1,0 +1,13 @@
+
+GET      /                                     controllers.MainPage.home
+
+GET      /api/poll                             controllers.MainPage.poll
+PUT      /api/update/:tableId                  controllers.MainPage.update(tableId: String)
+
+GET      /:tableId                             controllers.MainPage.participantTable(tableId: String)
+
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                          controllers.Assets.at(path="/public", file)
