@@ -1,0 +1,37 @@
+@()
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    @css("bootstrap.css")
+    @css("style.css")
+
+  <body>
+    <div class="container">
+      <div class="row">
+       <h2>Écrans</h2>
+       <p>Cliquez sur un des liens suivants pour accéder à l'interface du conférencier ou l'une des tables</p>
+
+        <div class="offset2 span3">
+          <ul class="nav nav-tabs nav-stacked">  
+              <li><a href="/conferencier">Écran du conférencier</a></li>
+              @ecran("A")
+              @ecran("B")
+              @ecran("C")
+              @ecran("D")
+              @ecran("E")
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  @js("jquery-1.7.2.js")
+  @js("underscore.js")
+  @js("bootstrap.min.js")
+  @js("speaker.js")  
+</html>
+
+@ecran(t: String) = {
+  <li><a href="/@t">Écran de la table @t</a></li>
+}

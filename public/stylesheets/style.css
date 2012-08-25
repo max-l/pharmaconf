@@ -20,3 +20,16 @@
 .rep {
   position:relative;
 }
+
+a.right {
+  float: right;
+}
+
+.qtable input {
+  width: 40px;
+}
+
+.qtable {
+  margin-top: 30px;
+  height: 350px;
+}

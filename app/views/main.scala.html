@@ -9,44 +9,35 @@
   <body>
     <div class='container'>
 
-      <div class='row'>
-  
-        @tableIcon("A")
-        @tableIcon("B")
-        @tableIcon("C")
-        @tableIcon("D")
-        @tableIcon("E")
-      </div>
-  
-      <div class='row'>
-        @table("A")
-        @table("B")
-      </div>
-      <div class='row'>
-        @table("C")
-        @table("D")
-      </div>
-  
-      <div class='row'>
-        @table("E")
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#sceance1" data-toggle="tab">Question 1</a></li>
+        <li><a href="#sceance2" data-toggle="tab">Question 2</a></li>
+        <li><a href="#sceance3" data-toggle="tab">Question 3</a></li>
+      </ul>
+
+      <div class="tab-content">
+        @scance(1, "active")
+        @scance(2)
+        @scance(3)
       </div>
     </div>
-        
   </body>
   
   @js("jquery-1.7.2.js")
   @js("underscore.js")
+  @js("bootstrap.min.js")
   @js("speaker.js")  
 </html>
 
-@table(label: String) = {
+@table(label: String, leftOrRight: String = "left") = {
   <div class='span5 tableView'>
+   <a class='btn @leftOrRight'>@label</a>
    <div class='rep' id='@label'>
-   <pre>
+   
     Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse  
     Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse
     Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse
-    </pre>
+   
     </div>
   
    <div class='wm'>@label</div>
@@ -56,5 +47,22 @@
 @tableIcon(label: String) = {
   <div class='span2'>
     <a class='btn btn-primary'>@label</a>
+  </div>
+}
+
+@scance(sceanceId: Int, active: String = "") = {
+  <div class='tab-pane @active' id="sceance@sceanceId">
+      <div class='row'>
+        @table("A")
+        @table("B","right")
+      </div>
+      <div class='row'>
+        @table("C")
+        @table("D","right")
+      </div>
+  
+      <div class='row'>
+        @table("E")
+      </div>  
   </div>
 }

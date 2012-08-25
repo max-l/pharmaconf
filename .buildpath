@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="app"/>
+	<buildpathentry kind="src" path="target/scala-2.9.1/src_managed/main"/>
+	<buildpathentry kind="src" path="test"/>
+	<buildpathentry kind="con" path="org.eclipse.dltk.mod.launching.INTERPRETER_CONTAINER"/>
+	<buildpathentry kind="con" path="org.ebayopensource.vjet.eclipse.core.JSNATIVE_CONTAINER/JS Native Types"/>
+	<buildpathentry kind="con" path="org.ebayopensource.vjet.eclipse.core.BROWSER_CONTAINER/Browser SDK"/>
+	<buildpathentry external="true" kind="lib" path="/home/max/mdev/Play20/repository/local/play/play_2.9.1/2.1-SNAPSHOT/jars/play_2.9.1.jar"/>
+	<buildpathentry external="true" kind="lib" path="/home/max/dev/main-sandbox/eclipse/configuration/org.eclipse.osgi/bundles/350/1/.cp/lib/scala-compiler.jar"/>
+	<buildpathentry external="true" kind="lib" path="/home/max/mdev/Play20/repository/cache/org.specs2/specs2_2.9.1/jars/specs2_2.9.1-1.9.jar"/>
+	<buildpathentry external="true" kind="lib" path="/home/max/mdev/Play20/repository/cache/org.seleniumhq.selenium/selenium-java/jars/selenium-java-2.21.0.jar"/>
+</buildpath>

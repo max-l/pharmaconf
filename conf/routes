@@ -1,6 +1,7 @@
 
 GET      /                                     controllers.MainPage.home
 
+GET      /conferencier                         controllers.MainPage.conferencier
 GET      /api/poll                             controllers.MainPage.poll
 PUT      /api/update/:tableId                  controllers.MainPage.update(tableId: String)
 

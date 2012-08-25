@@ -1,0 +1,33 @@
+
+<script id="introQuestionnaire" type="text/x-handlebars-template">
+  <div class=''>
+    <h5>{{this}}</h5>
+  </div> 
+</script>
+
+
+<script id="choixMultiplesOrd" type="text/x-handlebars-template">
+  <div class='qtable span11'>
+    <h5>{{question}}</h5>
+    <table class='table table-hover table-condensed'>
+     <thead>
+        <tr>
+          <td></td>
+          <td>Jean Pierre</td>
+          <td>Lise</td>
+          <td>Raoul</td>
+        </tr>
+     </thead>
+     <tbody>
+        {{#each answers}}
+          <tr>
+            <td>{{this}}</td>
+            <td><input type='text'></td>
+            <td><input type='text'></td>
+            <td><input type='text'></td>
+          </tr>
+        {{/each}}
+     </tbody>
+    <table>
+  </div> 
+</script>

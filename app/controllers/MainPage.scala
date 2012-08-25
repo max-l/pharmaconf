@@ -11,7 +11,12 @@ import scala.collection.mutable.HashMap
 
 
 object MainPage extends Controller {
+  
  def home = Action {
+    Ok(html.home())
+ }
+ 
+ def conferencier = Action {
     Ok(html.main())
  }
  
