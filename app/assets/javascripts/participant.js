@@ -1,25 +1,6 @@
 
 function init(tableId) {
-    
-    var textBox = $('#textBox')
-    
-    var sendChanges = function() {
-      $.ajax({
-    	  url: '/api/update/' + tableId,
-          type: 'PUT',
-          data: textBox.val(),
-          dataType: 'json',
-          contentType: "application/json; charset=utf-8",
-          success: function(res) {
-          },
-          error: function(err) {
-          }	  
-      })
-    }
-    
-    textBox.keyup(_.throttle(sendChanges, 2000))
-    
-    
+
 	var Questionnaire = function(el) {
 		
 		var boiler = function(subject) {
@@ -91,14 +72,14 @@ function init(tableId) {
 	        		e.append($("<a id='next' class='btn btn-primary'>Débuter le questionnaire</a>"))
 	        	}
 	        	else if(step == 1) {
-	        		e.append($("<a id='next' class='btn btn-primary'>Question suivante</a>"))
+	        		e.append($("<a id='next' class='btn btn-primary'>Question suivante >></a>"))
 	        	}	        	
 	        	else if(step == (qs.length -1)) {
 	        		e.append($("<a id='close' class='btn'>Fermer</a>"))
 	        	}
-	        	else {
-	        		e.append($("<a id='prev' class='btn'>Question précédente</a>"))
-	        		e.append($("<a id='next' class='btn btn-primary'>Question suivante</a>"))
+	        	else {	        		
+	        		e.append($("<a id='next' class='btn btn-primary'>Question suivante >></a>"))
+	        		e.append($("<a id='prev' class='btn'>&lt;&lt; Question précédente</a>"))
 	        	}
 	        	
                 return this
@@ -119,12 +100,42 @@ function init(tableId) {
 	qbox.hide()
 
 	var EcranPharmacien = function() {
-		
+
+        var sendChangesFunc = function(qId) {
+          var textArea = $('#textBox' + qId)
+          return _.throttle(function() {
+        	  var msg = {
+        	      questionId: qId, 
+        	      tableId: tableId,
+        	      text: textArea.val(), 
+        	      ended: false
+        	  }
+              $.ajax({
+            	  url: '/api/update',
+                  type: 'PUT',
+                  data: JSON.stringify(msg),
+                  dataType: 'json',
+                  contentType: "application/json; charset=utf-8",
+                  success: function(res) {
+                  },
+                  error: function(err) {
+                  }	  
+              })
+            }, 3000)
+        }
+        
+        var sendFunc1 = sendChangesFunc(1)
+        var sendFunc2 = sendChangesFunc(2)
+        var sendFunc3 = sendChangesFunc(3)
+
 		var isPaused = false
 		
 	    var V = Backbone.View.extend({
 	    	el: $('body'),
 	    	events: {
+	    	    "keyup #textBox1": function() {sendFunc1()},
+	    	    "keyup #textBox2": function() {sendFunc2()},
+	    	    "keyup #textBox3": function() {sendFunc3()},
 	    		"click #termine": function(ev) {
 	    	      if(!isPaused) {
 	    	         $(ev.currentTarget).text('continuer la rédaction')

@@ -2,7 +2,7 @@
 .tableView {
   border-style: solid;
   border-color: lightgray;
-  height: 250px;
+  height: 210px;
   margin-top: 20px;
   position:relative;
 }
@@ -32,4 +32,25 @@ a.right {
 .qtable {
   margin-top: 30px;
   height: 350px;
+}
+
+.participantTextArea {
+  width: 940px;
+}
+
+#prev {
+  float: right;
+}
+
+#next {
+  float: right;
+  margin-left: 15px;
+  margin-right: 330px;
+}
+
+.modal {
+  width: 600px;
+  height: 700px;
+  top: 380px; /*left: 60%;*/
+  left: 800px;
 }

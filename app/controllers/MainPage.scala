@@ -20,24 +20,38 @@ object MainPage extends Controller {
     Ok(html.main())
  }
  
- val speech = {
-   val m = new HashMap[String,String]
-   
-   m.put("A", "")
-   m.put("B", "Ceci est un texte...")
-   m
- }
- 
+ val conference = new HashMap[ConfSlot,SlotState]
+
  def poll = Action {
-    Ok(Json.generate(speech))
+   val ser = conference.synchronized(conference.map { e =>
+     MsgPacked(e._1.questionId, e._1.tableId, e._2.text, e._2.ended)
+   }) 
+   Ok(Json.generate(ser))
  }
  
  def participantTable(tableId: String) = Action {
     Ok(html.participant(tableId))
  }
  
- def update(tableId: String) = Action(BodyParsers.parse.tolerantText) { req =>
-   speech.put(tableId, req.body)
+ def update = Action(BodyParsers.parse.tolerantText) { req =>
+   
+   val msg = Json.parse[MsgPacked](req.body)
+   val up = msg.unpack
+    conference.synchronized {         
+        conference.put(up.cs, up.ss)
+    }
    Ok
  }
+}
+
+
+case class Msg(cs: ConfSlot, ss: SlotState)
+
+case class ConfSlot(questionId: Int, tableId: String)
+
+case class SlotState(text: String, ended: Boolean)
+
+
+case class MsgPacked(questionId: Int, tableId: String, text: String, ended: Boolean) {
+  def unpack = Msg(ConfSlot(questionId, tableId), SlotState(text, ended))
 }

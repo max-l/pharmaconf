@@ -5,9 +5,11 @@
 
     @css("bootstrap.css")
     @css("style.css")
+    @templates()
 
   <body>
     <div class='container'>
+     <h1>Conférence: Arthrite rhumatoïde</h1>
 
       <ul class="nav nav-tabs">
         <li class="active"><a href="#sceance1" data-toggle="tab">Question 1</a></li>
@@ -26,20 +28,16 @@
   @js("jquery-1.7.2.js")
   @js("underscore.js")
   @js("bootstrap.min.js")
+  @js("backbone.js")
+  @js("handlebars-1.0.0.beta.6.js")
+  @js("handlebarsHelpers.js")  
   @js("speaker.js")  
 </html>
 
-@table(label: String, leftOrRight: String = "left") = {
+@table(sceanceId: Int, label: String, leftOrRight: String = "left") = {
   <div class='span5 tableView'>
-   <a class='btn @leftOrRight'>@label</a>
-   <div class='rep' id='@label'>
-   
-    Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse  
-    Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse
-    Ceci est une réponse,Ceci est une réponse ,Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse Ceci est une réponse
-   
-    </div>
-  
+   <a class='btnz btn @leftOrRight' data='@sceanceId-@label'>@label</a>
+   <div class='rep' id='@sceanceId-@label'></div>
    <div class='wm'>@label</div>
   </div>
 }
@@ -53,16 +51,16 @@
 @scance(sceanceId: Int, active: String = "") = {
   <div class='tab-pane @active' id="sceance@sceanceId">
       <div class='row'>
-        @table("A")
-        @table("B","right")
+        @table(sceanceId, "A")
+        @table(sceanceId, "B","right")
       </div>
       <div class='row'>
-        @table("C")
-        @table("D","right")
+        @table(sceanceId, "C")
+        @table(sceanceId, "D","right")
       </div>
   
       <div class='row'>
-        @table("E")
+        @table(sceanceId, "E")
       </div>  
   </div>
 }

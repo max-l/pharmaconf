@@ -9,7 +9,7 @@
   <body>
     <div class='container'>
 
-      <div class='row'>Table @tableId</div>
+      <h1>Table @tableId</h1>
 
       <ul class="nav nav-tabs">
         <li class="active"><a href="#sceance1" data-toggle="tab">Question 1</a></li>
@@ -44,6 +44,6 @@
 
 @scance(sceanceId: Int, active: String = "") = {
   <div class='tab-pane @active' id="sceance@sceanceId">
-      <textarea id='textBox@sceanceId' rows='15' class='span10'></textarea>
+      <textarea class='participantTextArea' id='textBox@sceanceId' cols='50' rows='15'></textarea>
   </div>
 }
