@@ -14,7 +14,7 @@
 
         <div class="offset2 span3">
           <ul class="nav nav-tabs nav-stacked">  
-              <li><a href="/conferencier">Écran du conférencier</a></li>
+              <li><a target='_blank' href="/pc/conferencier">Écran du conférencier</a></li>
               @ecran("A")
               @ecran("B")
               @ecran("C")
@@ -33,5 +33,5 @@
 </html>
 
 @ecran(t: String) = {
-  <li><a target='_blank' href="/@t">Écran de la table @t</a></li>
+  <li><a target='_blank' href="/pc/@t">Écran de la table @t</a></li>
 }

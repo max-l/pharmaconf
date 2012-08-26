@@ -113,7 +113,7 @@ function init(tableId) {
         	      ended: isPaused
         	  }
               $.ajax({
-            	  url: '/api/update',
+            	  url: '/pc/api/update',
                   type: 'PUT',
                   data: JSON.stringify(msg),
                   dataType: 'json',

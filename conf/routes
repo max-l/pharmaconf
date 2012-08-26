@@ -1,14 +1,14 @@
 
-GET      /                                     controllers.MainPage.home
+GET      /pc                                     controllers.MainPage.home
 
-GET      /conferencier                         controllers.MainPage.conferencier
-GET      /api/poll                             controllers.MainPage.poll
-PUT      /api/update                           controllers.MainPage.update
+GET      /pc/conferencier                         controllers.MainPage.conferencier
+GET      /pc/api/poll                             controllers.MainPage.poll
+PUT      /pc/api/update                           controllers.MainPage.update
 
-GET      /:tableId                             controllers.MainPage.participantTable(tableId: String)
+GET      /pc/:tableId                             controllers.MainPage.participantTable(tableId: String)
 
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                          controllers.Assets.at(path="/public", file)
+GET     /pc/assets/*file                          controllers.Assets.at(path="/public", file)

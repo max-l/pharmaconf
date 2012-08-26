@@ -94,7 +94,7 @@ var processMsg = function(res) {
 
 poll = function() {
   $.ajax({
-	  url: '/api/poll',
+	  url: '/pc/api/poll',
       type: 'GET',
       dataType: 'json',
       contentType: "application/json; charset=utf-8",
