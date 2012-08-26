@@ -36,7 +36,7 @@
 
 @table(sceanceId: Int, label: String, leftOrRight: String = "left") = {
   <div class='span5 tableView'>
-   <a class='btnz btn @leftOrRight' data='@sceanceId-@label'>@label</a>
+   <a class='btnz btn @leftOrRight a-@sceanceId-@label' sceanceId='@sceanceId' tableId='@label'>@label</a>
    <div class='rep' id='@sceanceId-@label'></div>
    <div class='wm'>@label</div>
   </div>

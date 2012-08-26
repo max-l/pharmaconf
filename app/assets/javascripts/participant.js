@@ -36,7 +36,7 @@ function init(tableId) {
 		var q3 = qcm(2)
 		
 		var qs = [q0, 
-		          qcm(0),qcm(1),qcm(2),qcm(3),qcm(4),qcm(5),
+		          qcm(0), qcm(1), qcm(2), qcm(3), qcm(4), qcm(5),
 		          $(Templates.introQuestionnaire("Merci d'avoir répondu aux question, bonne conférence !"))]
 		
 		var step = 0
@@ -100,6 +100,8 @@ function init(tableId) {
 	qbox.hide()
 
 	var EcranPharmacien = function() {
+		
+		var isPaused = false
 
         var sendChangesFunc = function(qId) {
           var textArea = $('#textBox' + qId)
@@ -108,7 +110,7 @@ function init(tableId) {
         	      questionId: qId, 
         	      tableId: tableId,
         	      text: textArea.val(), 
-        	      ended: false
+        	      ended: isPaused
         	  }
               $.ajax({
             	  url: '/api/update',
@@ -119,16 +121,15 @@ function init(tableId) {
                   success: function(res) {
                   },
                   error: function(err) {
-                  }	  
+                	  //TODO: send error log
+                  }
               })
             }, 3000)
         }
         
         var sendFunc1 = sendChangesFunc(1)
         var sendFunc2 = sendChangesFunc(2)
-        var sendFunc3 = sendChangesFunc(3)
-
-		var isPaused = false
+        var sendFunc3 = sendChangesFunc(3)		
 		
 	    var V = Backbone.View.extend({
 	    	el: $('body'),
@@ -142,6 +143,7 @@ function init(tableId) {
 	    	         $('textarea').attr('disabled',true)
 	    	         qbox.show()
 	    	         isPaused = true
+	    	         sendFunc1()//just to send isPaused
 	    	         return
 	    	      }
 	    	      
@@ -149,6 +151,7 @@ function init(tableId) {
 	    	      $('textarea').removeAttr('disabled')
 	    	      qbox.hide()
 	    	      isPaused = false
+	    	      sendFunc1()//just to send isPaused
 	    	    }
 	    	},
 	        initialize: function() {
@@ -162,6 +165,4 @@ function init(tableId) {
 	}
 	
 	EcranPharmacien()
-	
-	//qbox.show()
 }
