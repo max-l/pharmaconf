@@ -22,7 +22,11 @@
 }
 
 a.right {
-  float: right;
+  float: right;  
+}
+
+div.right {
+  margin-top: 30px;  
 }
 
 .qtable input {

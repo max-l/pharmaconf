@@ -22,7 +22,13 @@ var EcranConferencier = function() {
     	el: $('body'),
     	events: {
     	    "click #btnCloseDialog": function() {closePrevWindow()},
+    	    "click .tableView": function(ev) {
+    	    	ev.preventDefault()
+    	    	var b = $(ev.currentTarget).find('a')
+    	    	b.trigger('click')
+    	    },
     		"click .btnz": function(ev) {
+    	       ev.stopPropagation()
     	       var btn = $(ev.currentTarget)
     	       var sceanceId = btn.attr('sceanceId')
     	       var tableId = btn.attr('tableId')
