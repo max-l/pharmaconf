@@ -69,7 +69,7 @@ function init(tableId) {
 	        	this.$('#pan').html(qs[step])
 	        	
 	        	if(step == 0) {
-	        		e.append($("<a id='next' class='btn btn-primary'>Débuter le questionnaire</a>"))
+	        		e.append($("<a id='next' class='btn btn-primary btn-large'>Débuter le questionnaire</a>"))
 	        	}
 	        	else if(step == 1) {
 	        		e.append($("<a id='next' class='btn btn-primary'>Question suivante >></a>"))
@@ -104,12 +104,14 @@ function init(tableId) {
 		var isPaused = false
 
         var sendChangesFunc = function(qId) {
-          var textArea = $('#textBox' + qId)
+          var aTextArea = $('#a-textBox' + qId)
+          var rTextArea = $('#r-textBox' + qId)
           return _.throttle(function() {
         	  var msg = {
         	      questionId: qId, 
         	      tableId: tableId,
-        	      text: textArea.val(), 
+        	      text: aTextArea.val(),
+        	      rational: rTextArea.val(),
         	      ended: isPaused
         	  }
               $.ajax({
@@ -134,13 +136,20 @@ function init(tableId) {
 	    var V = Backbone.View.extend({
 	    	el: $('body'),
 	    	events: {
-	    	    "keyup #textBox1": function() {sendFunc1()},
-	    	    "keyup #textBox2": function() {sendFunc2()},
-	    	    "keyup #textBox3": function() {sendFunc3()},
+	    	
+	    	    "keyup #a-textBox1": function() {sendFunc1()},
+	    	    "keyup #a-textBox2": function() {sendFunc2()},
+	    	    "keyup #a-textBox3": function() {sendFunc3()},
+	    	    
+	    	    "keyup #r-textBox1": function() {sendFunc1()},
+	    	    "keyup #r-textBox2": function() {sendFunc2()},
+	    	    "keyup #r-textBox3": function() {sendFunc3()},
+	    	    
 	    		"click #termine": function(ev) {
 	    	      if(!isPaused) {
 	    	         $(ev.currentTarget).text('continuer la rédaction')
-	    	         $('textarea').attr('disabled',true)
+	    	         //$('textarea').attr('disabled',true)
+	    	         $('#qpan').hide("slow")
 	    	         qbox.show()
 	    	         isPaused = true
 	    	         sendFunc1()//just to send isPaused
@@ -148,7 +157,8 @@ function init(tableId) {
 	    	      }
 	    	      
 	    	      $(ev.currentTarget).text('redaction terminée')
-	    	      $('textarea').removeAttr('disabled')
+	    	      //$('textarea').removeAttr('disabled')
+	    	      $('#qpan').show("slow")
 	    	      qbox.hide()
 	    	      isPaused = false
 	    	      sendFunc1()//just to send isPaused

@@ -11,6 +11,8 @@
 
       <h1>Table @tableId</h1>
 
+      <b>Participants</b>: Jean Pierre Fisette, Raoul Espinoza, Lise Brisebois <br>
+   <div id='qpan'>
       <ul class="nav nav-tabs">
         <li class="active"><a href="#sceance1" data-toggle="tab">Question 1</a></li>
         <li><a href="#sceance2" data-toggle="tab">Question 2</a></li>
@@ -22,6 +24,7 @@
         @scance(2)
         @scance(3)
       </div>
+   </div>
       
       <a id='termine' class='btn'>Terminé</a>
       
@@ -44,6 +47,9 @@
 
 @scance(sceanceId: Int, active: String = "") = {
   <div class='tab-pane @active' id="sceance@sceanceId">
-      <textarea class='participantTextArea' id='textBox@sceanceId' cols='50' rows='15'></textarea>
+      <h5>Rédiger votre diagnostique sur ce cas, ou des questions additionnelles si vous jugez ne pas avoir suffisament d'information.</h5>
+      <textarea class='participantTextArea' id='a-textBox@sceanceId' cols='50' rows='7'></textarea>
+      <h5>Quelle est la justification de votre réponse précédente ?</h5>
+      <textarea class='participantTextArea' id='r-textBox@sceanceId' cols='50' rows='7'></textarea>
   </div>
 }

@@ -1,19 +1,19 @@
 
 var modalDialog = function(title, beforeShowFunc) {
-                
+
   var c = $(Templates.ModalDialog({okButtonCaption: 'Fermer', title: title}))
-              
+
   var modal = c.modal({backdrop: false}).data('modal')
 
   var closeFunc = function() {
     modal.hide()
-    c.remove()                
+    c.remove()
   }
-  
+
   beforeShowFunc(c, closeFunc)
   $('body').append(c)
 }
-        
+
 var EcranConferencier = function() {
 	
 	var closePrevWindow = function(){}
@@ -24,42 +24,53 @@ var EcranConferencier = function() {
     	    "click #btnCloseDialog": function() {closePrevWindow()},
     	    "click .tableView": function(ev) {
     	    	ev.preventDefault()
-    	    	var b = $(ev.currentTarget).find('a')
-    	    	b.trigger('click')
+    	    	var b = $(ev.currentTarget).find('a.btnz')
+    	    	ev.stopPropagation()
+    	        var btn = $(ev.currentTarget)
+    	        var sceanceId = btn.attr('sceanceId')
+    	        var tableId = btn.attr('tableId')
+    	        this.pop(sceanceId, tableId)
     	    },
-    		"click .btnz": function(ev) {
+    		"click .btnz, .btnzB": function(ev) {
     	       ev.stopPropagation()
     	       var btn = $(ev.currentTarget)
     	       var sceanceId = btn.attr('sceanceId')
     	       var tableId = btn.attr('tableId')
-    	       var divId = sceanceId + '-' + tableId
-    	       var div = $('#'+divId)
-    	       //console.log(div.text())
-    	       
-    	       modalDialog('Table ' + tableId, function(e, closeFunc) {
-    	    	   closePrevWindow()
-    	    	   closePrevWindow = closeFunc
-    	    	   var z = $('<div></div>')
-    	    	   z.text(div.text())
-    	    	   e.find('.modal-body').append(z)
-    	    	   var footer = e.find('.modal-footer')
-    	    	   _.each(['A','B','C','D','E'], function(tId) {
-    	    		   var b = $("<a class='btnz btn'>"+tId+"</a>")
-    	    		   b.attr('tableId', tId)
-    	    		   b.attr('sceanceId', sceanceId)
-    	    		   //b.addClass('a-' + sceanceId + '-' + tId)
-    	    		   var otherBtn = $('.a-' + sceanceId + '-' + tId)
-    	    		   if(otherBtn.hasClass('btn-danger'))
-    	    			   b.addClass('btn-danger')
-    	    		   else if(otherBtn.hasClass('btn-success'))
-    	    			   b.addClass('btn-success')
-    	    		   footer.append(b)
-    	    	   })
-    	    	   footer.append($("<a id='btnCloseDialog' class='btn btn-primary'>Fermer</a>"))
-    	    	   //to collor the buttons :
-    	    	   //processMsg(lastMsg)
-    	       })
-    	    }
+    	       this.pop(sceanceId, tableId)
+    		}
+    	},
+    	pop: function(sceanceId, tableId) {
+
+ 	        var divId = sceanceId + '-' + tableId
+	       
+            var msg = tableMsgMap[divId]
+            //if(!msg) msg = {}
+            
+            var div = $('#'+divId)
+            //console.log(div.text())
+            
+            modalDialog('Table ' + tableId, function(e, closeFunc) {
+            	   closePrevWindow()
+            	   closePrevWindow = closeFunc
+            
+            	   e.find('.modal-body').append($(Templates.PharmaMessage(msg)))
+            	   var footer = e.find('.modal-footer')
+            	   _.each(['A','B','C','D','E'], function(tId) {
+            		   var b = $("<a class='btn btnzB'>"+tId+"</a>")
+            		   b.attr('tableId', tId)
+            		   b.attr('sceanceId', sceanceId)
+            		   //b.addClass('a-' + sceanceId + '-' + tId)
+            		   var otherBtn = $('.a-' + sceanceId + '-' + tId)
+            		   if(otherBtn.hasClass('btn-danger'))
+            			   b.addClass('btn-danger')
+            		   else if(otherBtn.hasClass('btn-success'))
+            			   b.addClass('btn-success')
+            		   footer.append(b)
+            	   })
+            	   footer.append($("<a id='btnCloseDialog' class='btn btn-primary'>Fermer</a>"))
+            	   //to collor the buttons :
+            	   //processMsg(lastMsg)
+            })
     	},
         initialize: function() {
         },
@@ -77,13 +88,19 @@ var POLL_DELAY = 3000
 var poll = null 
 
 var lastMsg = []
+               
+var tableMsgMap = {}
 
 var processMsg = function(res) {
     _.each(res, function(msg) {
-    	lastMsg = msg
+    	lastMsg = msg    	
     	var id = msg.questionId + '-' + msg.tableId
+
+    	tableMsgMap[id] = msg
+
     	var tableDiv = $('#'+ id)
-    	tableDiv.text(msg.text)
+    	tableDiv.empty()
+    	tableDiv.append($(Templates.PharmaMessage(msg)))
     	var btn = $('.a-' + id)
     	if(msg.ended) {
     		btn.removeClass('btn-success')
@@ -93,8 +110,6 @@ var processMsg = function(res) {
     		btn.addClass('btn-success')
     		btn.removeClass('btn-danger')
     	}
-    		
-	    
     })	
 }
 
@@ -105,8 +120,7 @@ poll = function() {
       dataType: 'json',
       contentType: "application/json; charset=utf-8",
       success: processMsg,
-      error: function(err) {
-      }	  
+      error: function(err) {}
   })
   
   _.delay(poll, POLL_DELAY)

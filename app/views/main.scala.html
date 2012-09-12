@@ -17,7 +17,7 @@
         <li><a href="#sceance3" data-toggle="tab">Question 3</a></li>
       </ul>
 
-      <div class="tab-content">
+      <div class="tab-content panConf">
         @scance(1, "active")
         @scance(2)
         @scance(3)
@@ -35,9 +35,9 @@
 </html>
 
 @table(sceanceId: Int, label: String, leftOrRight: String = "left") = {
-  <div class='span5 tableView'>
-   <a class='btnz btn @leftOrRight a-@sceanceId-@label' sceanceId='@sceanceId' tableId='@label'>@label</a>
-   <div class='rep @leftOrRight' id='@sceanceId-@label'></div>
+  <div class='span5 tableTile tableView tableView@leftOrRight' sceanceId='@sceanceId' tableId='@label'>
+    <a class='btnz btn btn-mini @leftOrRight a-@sceanceId-@label' sceanceId='@sceanceId' tableId='@label'>@label</a>
+    <div class='rep @leftOrRight' id='@sceanceId-@label'></div>
   </div>
 }
 
@@ -51,7 +51,6 @@
         @table(sceanceId, "C")
         @table(sceanceId, "D","right")
       </div>
-  
       <div class='row'>
         @table(sceanceId, "E")
       </div>  

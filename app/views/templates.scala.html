@@ -46,3 +46,22 @@
       <div class="modal-footer"></div>
     </div>
 </script>
+
+
+
+<script id="PharmaMessage" type="text/x-handlebars-template">
+  {{#if this}}
+    <div class='PharmaMessage'>
+      <h5>Réponse</h5>
+      <ul>
+        <li>{{text}}</li>
+      </ul>
+      <h5>Justification</h5>
+      <ul>
+        <li>{{rational}}</li>
+      </ul>    
+    </div>    
+  {{else}}
+    <span>pas de réponse</span> 
+  {{/if}}
+</script>
