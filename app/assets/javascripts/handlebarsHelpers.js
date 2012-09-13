@@ -32,4 +32,12 @@
         return options.inverse(this);
       }
     });
+
+parts = {
+  'A': 'Jean Pierre Fisette, Raoul Espinoza, Lise Brisebois',
+  'B': 'Paul Plourde, Richard Gourde, Xiaoyu Zong',
+  'C': 'Abdelkarim Abu-Zafar, Réjean Paquette, Pauline Bilodeau',
+  'D': 'Deng Thieu Tran, Ronald McDonnel, Gilles Plourde',
+  'E': 'Eric Bastin,Jeanne Mance, Lise Touchette'
+}    
 }()

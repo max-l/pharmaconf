@@ -1,11 +1,18 @@
 
-var modalDialog = function(title, beforeShowFunc) {
 
-  var c = $(Templates.ModalDialog({okButtonCaption: 'Fermer', title: title}))
+var modalDialog = function(title, beforeShowFunc, tableId) {
+
+  var c = $(Templates.ModalDialog({
+	  okButtonCaption: 'Fermer', 
+	  title: title,
+	  participants: parts[tableId]
+	}))
 
   var modal = c.modal({backdrop: false}).data('modal')
 
   var closeFunc = function() {
+	modalBody = null
+	modalQid = null	  
     modal.hide()
     c.remove()
   }
@@ -13,6 +20,9 @@ var modalDialog = function(title, beforeShowFunc) {
   beforeShowFunc(c, closeFunc)
   $('body').append(c)
 }
+
+var modalQid = null
+var modalBody = null
 
 var EcranConferencier = function() {
 	
@@ -42,24 +52,23 @@ var EcranConferencier = function() {
     	pop: function(sceanceId, tableId) {
 
  	        var divId = sceanceId + '-' + tableId
+ 	        modalQid = divId
 	       
             var msg = tableMsgMap[divId]
-            //if(!msg) msg = {}
-            
-            var div = $('#'+divId)
-            //console.log(div.text())
             
             modalDialog('Table ' + tableId, function(e, closeFunc) {
             	   closePrevWindow()
             	   closePrevWindow = closeFunc
             
-            	   e.find('.modal-body').append($(Templates.PharmaMessage(msg)))
+            	   modalBody = e.find('.modal-body')
+            	   modalBody.append($(Templates.PharmaMessage(msg)))
+            	   
             	   var footer = e.find('.modal-footer')
             	   _.each(['A','B','C','D','E'], function(tId) {
             		   var b = $("<a class='btn btnzB'>"+tId+"</a>")
             		   b.attr('tableId', tId)
             		   b.attr('sceanceId', sceanceId)
-            		   //b.addClass('a-' + sceanceId + '-' + tId)
+
             		   var otherBtn = $('.a-' + sceanceId + '-' + tId)
             		   if(otherBtn.hasClass('btn-danger'))
             			   b.addClass('btn-danger')
@@ -70,7 +79,7 @@ var EcranConferencier = function() {
             	   footer.append($("<a id='btnCloseDialog' class='btn btn-primary'>Fermer</a>"))
             	   //to collor the buttons :
             	   //processMsg(lastMsg)
-            })
+            }, tableId)
     	},
         initialize: function() {
         },
@@ -97,6 +106,11 @@ var processMsg = function(res) {
     	var id = msg.questionId + '-' + msg.tableId
 
     	tableMsgMap[id] = msg
+
+    	if(modalQid && modalQid == id) {
+    		modalBody.empty()
+    		modalBody.append($(Templates.PharmaMessage(msg)))
+    	}
 
     	var tableDiv = $('#'+ id)
     	tableDiv.empty()

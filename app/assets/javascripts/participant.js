@@ -59,6 +59,7 @@ function init(tableId) {
 		           step = 0
 		           this.hide()
 		           this.render()
+		           $('#termine').trigger('click')
 		    	}	    		
 	        },
 	        render: function() {
@@ -147,7 +148,7 @@ function init(tableId) {
 	    	    
 	    		"click #termine": function(ev) {
 	    	      if(!isPaused) {
-	    	         $(ev.currentTarget).text('continuer la rédaction')
+	    	         $(ev.currentTarget).text('Continuer la rédaction (retour à la conférence)')
 	    	         //$('textarea').attr('disabled',true)
 	    	         $('#qpan').hide("slow")
 	    	         qbox.show()

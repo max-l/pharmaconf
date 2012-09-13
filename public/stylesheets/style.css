@@ -10,6 +10,21 @@
   font-size: 0.8em;
 }
 
+.PharmaMessage li {
+  list-style-type: none;
+  font-size: 0.9em;
+}
+
+.PharmaMessage h5 {
+  line-height: 8px;
+  margin-top: 5px;
+  margin-left: 3px;
+}
+
+.PharmaMessage ul {
+  margin-left: 10px;
+}
+
 .tab-pane > .row {
   margin-left: 0px;
 }
@@ -67,10 +82,6 @@ a.left {
   left: -25px;    
 }
 
-div.right {
-  margin-top: 30px;  
-}
-
 .qtable input {
   width: 40px;
 }
@@ -94,7 +105,7 @@ div.right {
   margin-right: 330px;
 }
 
-.modal {  
+.zmodal {  
   left: 35%;
 }
 
