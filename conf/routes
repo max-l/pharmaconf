@@ -4,6 +4,7 @@ GET      /pc                                     controllers.MainPage.home
 GET      /pc/conferencier                         controllers.MainPage.conferencier
 GET      /pc/api/poll                             controllers.MainPage.poll
 PUT      /pc/api/update                           controllers.MainPage.update
+GET      /pc/api/reset                            controllers.MainPage.reset
 
 GET      /pc/:tableId                             controllers.MainPage.participantTable(tableId: String)
 

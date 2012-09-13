@@ -91,6 +91,9 @@ a.left {
   height: 350px;
 }
 
+#resetBtn {
+  float: right;
+}
 .participantTextArea {
   width: 940px;
 }

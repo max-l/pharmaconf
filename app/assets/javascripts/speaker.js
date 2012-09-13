@@ -31,6 +31,20 @@ var EcranConferencier = function() {
     var V = Backbone.View.extend({
     	el: $('body'),
     	events: {
+    	    "click #resetBtn": function() {
+                $.ajax({
+              	  url: '/pc/api/reset',
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    success: function(res) {
+                      window.location.href = window.location.href
+                    },
+                    error: function(err) {
+                  	  //TODO: send error log
+                    }
+                })    	
+            },
     	    "click #btnCloseDialog": function() {closePrevWindow()},
     	    "click .tableView": function(ev) {
     	    	ev.preventDefault()
@@ -97,7 +111,6 @@ var POLL_DELAY = 3000
 var poll = null 
 
 var lastMsg = []
-               
 var tableMsgMap = {}
 
 var processMsg = function(res) {

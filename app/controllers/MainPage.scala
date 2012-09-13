@@ -32,6 +32,13 @@ object MainPage extends Controller {
  def participantTable(tableId: String) = Action {
     Ok(html.participant(tableId))
  }
+
+ def reset = Action {
+     conference.synchronized {
+       conference.clear
+     }   
+    Ok
+ }
  
  def update = Action(BodyParsers.parse.tolerantText) { req =>
    
