@@ -11,5 +11,6 @@ GET      /pc/:tableId                             controllers.MainPage.participa
 
 
 
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /pc/assets/*file                          controllers.Assets.at(path="/public", file)

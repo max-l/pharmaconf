@@ -1,5 +1,5 @@
 
-function init(tableId) {
+function init(tableId, jsonState) {
 
 	var Questionnaire = function(el) {
 		
@@ -133,7 +133,18 @@ function init(tableId) {
         var sendFunc1 = sendChangesFunc(1)
         var sendFunc2 = sendChangesFunc(2)
         var sendFunc3 = sendChangesFunc(3)		
-		
+
+        var currentQuestionId = 1
+
+        var notifyPaused = function() {
+        	if(currentQuestionId == 1)
+        		sendFunc1()
+        	else if(currentQuestionId == 2)
+        		sendFunc2()
+        	else if(currentQuestionId == 3)
+        		sendFunc3()
+        }
+
 	    var V = Backbone.View.extend({
 	    	el: $('body'),
 	    	events: {
@@ -146,6 +157,10 @@ function init(tableId) {
 	    	    "keyup #r-textBox2": function() {sendFunc2()},
 	    	    "keyup #r-textBox3": function() {sendFunc3()},
 	    	    
+	    	    "click #sceance1": function(ev) {currentQuestionId = 1},
+	    	    "click #sceance2": function(ev) {currentQuestionId = 2},
+	    	    "click #sceance3": function(ev) {currentQuestionId = 3},
+	    	    
 	    		"click #termine": function(ev) {
 	    	      if(!isPaused) {
 	    	         $(ev.currentTarget).text('Continuer la rédaction (retour à la conférence)')
@@ -153,7 +168,7 @@ function init(tableId) {
 	    	         $('#qpan').hide("slow")
 	    	         qbox.show()
 	    	         isPaused = true
-	    	         sendFunc1()//just to send isPaused
+	    	         notifyPaused()//just to send isPaused
 	    	         return
 	    	      }
 	    	      
@@ -162,12 +177,28 @@ function init(tableId) {
 	    	      $('#qpan').show("slow")
 	    	      qbox.hide()
 	    	      isPaused = false
-	    	      sendFunc1()//just to send isPaused
+	    	      notifyPaused()//just to send isPaused
 	    	    }
 	    	},
 	        initialize: function() {
+	    		this.render()
 	        },
 	        render: function() {
+
+	        	var f = function(i) {
+
+	        		var q = _.find(jsonState, function(q) {return q.questionId == i})
+
+	        		if(q) {
+	        		  this.$('#a-textBox'+i).text(q.text)
+	        		  this.$('#r-textBox'+i).text(q.rational)
+	        		}
+	        	}
+
+	        	f(1)
+	        	f(2)
+	        	f(3)
+
                 return this
 	        }
 		})

@@ -30,7 +30,12 @@ object MainPage extends Controller {
  }
  
  def participantTable(tableId: String) = Action {
-    Ok(html.participant(tableId))
+   
+    val ser = conference.synchronized(conference.filter(e => e._1.tableId == tableId).map { e =>
+      MsgPacked(e._1.questionId, e._1.tableId, e._2.text, e._2.ended, e._2.rational)
+    })
+
+    Ok(html.participant(tableId, Json.generate(ser)))
  }
 
  def reset = Action {
@@ -39,7 +44,7 @@ object MainPage extends Controller {
      }   
     Ok
  }
- 
+
  def update = Action(BodyParsers.parse.tolerantText) { req =>
    
    val msg = Json.parse[MsgPacked](req.body)
